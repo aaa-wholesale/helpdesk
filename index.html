@@ -200,7 +200,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .main-content{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
 
 /* ══ SIDEBAR ══ */
-.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:11px}
+.sidebar-logo{padding:14px 18px 12px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;flex-direction:row;flex-wrap:nowrap}
 .logo-ico{width:38px;height:38px;background:linear-gradient(135deg,#2563EB,#0EA5E9);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;box-shadow:0 4px 12px rgba(37,99,235,0.4)}
 .logo-text{font-size:13px;font-weight:700;letter-spacing:-0.3px;line-height:1.2}
 .logo-sub{font-size:10px;color:rgba(255,255,255,0.35);margin-top:1px}
@@ -554,9 +554,9 @@ canvas{display:none}
 <!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sidebar-logo">
-    <img src="data:image/jpeg;base64,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" alt="AAA Wholesale" style="height:38px;width:auto;object-fit:contain;border-radius:6px;flex-shrink:0;filter:brightness(1.05)">
-    <div>
-      <div class="logo-text">IT Helpdesk Pro</div>
+    <img src="data:image/jpeg;base64,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" alt="AAA Wholesale" style="height:28px;width:auto;object-fit:contain;border-radius:5px;flex-shrink:0;filter:brightness(1.05)">
+    <div style="min-width:0;flex:1">
+      <div class="logo-text" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">IT Helpdesk Pro</div>
       <div class="logo-sub">SharePoint · M365</div>
     </div>
   </div>
@@ -602,6 +602,7 @@ canvas{display:none}
     <div class="nav-section" id="navOwner" style="display:none">
       <div class="nav-section-label" style="color:var(--orange)">⭐ Owner</div>
       <div class="nav-item" onclick="showPage('owner-panel')"><i class="ti ti-shield-lock"></i> Permissions</div>
+      <div class="nav-item" id="nav-settings-owner" onclick="showPage('settings')"><i class="ti ti-settings"></i> Settings</div>
     </div>
     <div class="nav-section">
       <div class="nav-section-label">Microsoft 365</div>
@@ -2436,12 +2437,19 @@ async function createPlannerTask(ticket) {
   } catch (err) {
     const msg = err.message || '';
     console.error('[Planner] Task creation failed:', msg);
-    if (msg.includes('403')) {
-      toast('⚠️ Planner: Task creation blocked (403). Make sure you are a member of the IT HelpDesk Planner group in Microsoft Teams, then try Sync Planner again.', true, 10000);
-    } else if (msg.includes('404')) {
-      toast('⚠️ Planner: Plan not found. Open the ticket and click Sync Planner.', true, 8000);
-    } else if (!msg.includes('401')) {
-      toast('⚠️ Planner task not created — ticket saved ✅. Click Sync Planner on the ticket to retry.', true, 6000);
+    // Only show Planner errors to staff (owner/admin/helpdesk) — not to employees who just submitted a ticket
+    const isStaff = currentUser && ['owner','admin','manager','helpdesk'].includes(currentUser.role);
+    if (isStaff) {
+      if (msg.includes('403')) {
+        toast('⚠️ Planner: Task creation blocked (403). Make sure you are a member of the IT HelpDesk Planner group in Microsoft Teams, then try Sync Planner again.', true, 10000);
+      } else if (msg.includes('404')) {
+        toast('⚠️ Planner: Plan not found. Open the ticket and click Sync Planner.', true, 8000);
+      } else if (!msg.includes('401')) {
+        toast('⚠️ Planner task not created — ticket saved ✅. Click Sync Planner on the ticket to retry.', true, 6000);
+      }
+    } else {
+      // For employees: silently log — their ticket was saved successfully
+      console.warn('[Planner] Task creation failed (hidden from user):', msg);
     }
     return null;
   }
@@ -6580,15 +6588,53 @@ const CATALOG_ITEMS = [
   { id:'sc8', name:'Printer / Scanner Setup', cat:'Hardware', sla:'2 business days', icon:'ti-printer', desc:'Install and configure a printer or scanner at your workstation.' },
 ];
 
+// Mutable catalog stored in localStorage so owner/admin can add items
+let _catalogItems = null;
+function getCatalogItems() {
+  if (_catalogItems) return _catalogItems;
+  try {
+    const saved = JSON.parse(lsGet('hd_catalog_items') || 'null');
+    _catalogItems = saved || JSON.parse(JSON.stringify(CATALOG_ITEMS));
+  } catch { _catalogItems = JSON.parse(JSON.stringify(CATALOG_ITEMS)); }
+  return _catalogItems;
+}
+function saveCatalogItems() {
+  lsSet('hd_catalog_items', JSON.stringify(_catalogItems));
+}
+
 function renderServiceCatalog() {
+  const canManageCatalog = currentUser && ['owner','admin'].includes(currentUser.role);
+  const items = getCatalogItems();
   document.getElementById('pageContent').innerHTML = `
   <div style="max-width:960px;margin:0 auto">
-    <div style="margin-bottom:20px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
       <div style="font-size:14px;color:var(--text3)">Select a service to submit a pre-filled request ticket</div>
+      ${canManageCatalog ? `<button onclick="toggleCatalogForm()" style="height:34px;padding:0 14px;border-radius:8px;border:none;background:var(--blue-mid);color:white;font-size:12px;font-weight:700;cursor:pointer"><i class="ti ti-plus"></i> Add Service</button>` : ''}
     </div>
+    ${canManageCatalog ? `
+    <div id="catalogAddForm" style="display:none;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px"><i class="ti ti-tag"></i> New Service Tag</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:12px">
+        <div><label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Service Name *</label>
+          <input id="catName" placeholder="e.g. VPN Setup" style="width:100%;height:34px;border-radius:8px;border:1.5px solid var(--input-border);padding:0 10px;font-size:12px;background:var(--input-bg);color:var(--text)"></div>
+        <div><label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Category</label>
+          <input id="catCat" placeholder="e.g. Network" style="width:100%;height:34px;border-radius:8px;border:1.5px solid var(--input-border);padding:0 10px;font-size:12px;background:var(--input-bg);color:var(--text)"></div>
+        <div><label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">SLA</label>
+          <input id="catSla" placeholder="e.g. 2 business days" style="width:100%;height:34px;border-radius:8px;border:1.5px solid var(--input-border);padding:0 10px;font-size:12px;background:var(--input-bg);color:var(--text)"></div>
+        <div><label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Icon (Tabler class)</label>
+          <input id="catIcon" placeholder="ti-settings" value="ti-settings" style="width:100%;height:34px;border-radius:8px;border:1.5px solid var(--input-border);padding:0 10px;font-size:12px;background:var(--input-bg);color:var(--text)"></div>
+      </div>
+      <div style="margin-bottom:12px"><label style="font-size:11px;font-weight:600;color:var(--text3);display:block;margin-bottom:4px">Description</label>
+        <textarea id="catDesc" placeholder="Brief description of the service…" style="width:100%;height:60px;border-radius:8px;border:1.5px solid var(--input-border);padding:8px 10px;font-size:12px;background:var(--input-bg);color:var(--text);resize:vertical"></textarea></div>
+      <div style="display:flex;gap:8px">
+        <button onclick="saveCatalogItem()" style="height:34px;padding:0 18px;border-radius:8px;border:none;background:var(--blue-mid);color:white;font-size:12px;font-weight:700;cursor:pointer"><i class="ti ti-check"></i> Save Service</button>
+        <button onclick="toggleCatalogForm()" style="height:34px;padding:0 12px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--text3);font-size:12px;cursor:pointer"><i class="ti ti-x"></i> Cancel</button>
+      </div>
+    </div>` : ''}
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px">
-      ${CATALOG_ITEMS.map(item => `
-        <div class="card" style="cursor:pointer;transition:transform 0.15s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''" onclick="requestFromCatalog('${item.id}')">
+      ${items.map(item => `
+        <div class="card" style="cursor:pointer;transition:transform 0.15s;position:relative" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''" onclick="requestFromCatalog('${item.id}')">
+          ${canManageCatalog ? `<button onclick="event.stopPropagation();deleteCatalogItem('${item.id}')" title="Remove" style="position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:6px;border:none;background:rgba(220,38,38,0.1);color:var(--red);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center"><i class="ti ti-x"></i></button>` : ''}
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
             <div style="width:42px;height:42px;border-radius:10px;background:var(--bg3);display:flex;align-items:center;justify-content:center">
               <i class="ti ${item.icon}" style="font-size:20px;color:var(--blue-mid)"></i>
@@ -6608,8 +6654,37 @@ function renderServiceCatalog() {
   </div>`;
 }
 
+function toggleCatalogForm() {
+  const f = document.getElementById('catalogAddForm');
+  if (f) f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+function saveCatalogItem() {
+  const name = document.getElementById('catName')?.value?.trim();
+  if (!name) { toast('Service name is required', true); return; }
+  const items = getCatalogItems();
+  items.push({
+    id: 'sc_custom_' + Date.now(),
+    name,
+    cat:  document.getElementById('catCat')?.value?.trim() || 'General',
+    sla:  document.getElementById('catSla')?.value?.trim() || '2 business days',
+    icon: document.getElementById('catIcon')?.value?.trim() || 'ti-settings',
+    desc: document.getElementById('catDesc')?.value?.trim() || ''
+  });
+  saveCatalogItems();
+  toast('Service added to catalog ✓');
+  renderServiceCatalog();
+}
+
+function deleteCatalogItem(id) {
+  _catalogItems = getCatalogItems().filter(x => x.id !== id);
+  saveCatalogItems();
+  toast('Service removed from catalog');
+  renderServiceCatalog();
+}
+
 function requestFromCatalog(id) {
-  const item = CATALOG_ITEMS.find(x => x.id === id);
+  const item = getCatalogItems().find(x => x.id === id);
   if (!item) return;
   showPage('new-ticket');
   setTimeout(() => {
@@ -6686,7 +6761,8 @@ function renderAssets() {
         </select>
         <div style="flex:1"></div>
         ${canManage ? `
-        <button onclick="exportAssetsCSV()" style="height:34px;padding:0 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text3);font-size:12px;cursor:pointer"><i class="ti ti-download"></i> Export</button>
+        <button onclick="exportAssetsCSV()" style="height:34px;padding:0 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text3);font-size:12px;cursor:pointer"><i class="ti ti-download"></i> Export CSV</button>
+        <button onclick="renderAssetReport()" style="height:34px;padding:0 12px;border-radius:8px;border:none;background:var(--blue-mid);color:white;font-size:12px;font-weight:600;cursor:pointer"><i class="ti ti-report-analytics"></i> Full Report</button>
         <label style="height:34px;padding:0 12px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text3);font-size:12px;cursor:pointer;display:flex;align-items:center;gap:4px">
           <i class="ti ti-upload"></i> Import CSV
           <input type="file" accept=".csv" onchange="importAssetsCSV(event)" style="display:none">
@@ -6995,6 +7071,158 @@ function exportAssetsCSV() {
   const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
   const a = document.createElement('a'); a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
   a.download = `assets_${new Date().toISOString().slice(0,10)}.csv`; a.click();
+}
+
+
+function renderAssetReport() {
+  if (!can('viewAssets')) { toast('Access denied', true); return; }
+  const now = new Date();
+  const statusCounts = {};
+  const typeCounts = {};
+  const locationCounts = {};
+  const costByType = {};
+  let totalCost = 0;
+  const expiredWarranty = [];
+  const expiringSoon = [];
+  const unassigned = [];
+  const thirtyDays = Date.now() + 30 * 86400000;
+
+  assets.forEach(a => {
+    statusCounts[a.status] = (statusCounts[a.status] || 0) + 1;
+    typeCounts[a.type]     = (typeCounts[a.type]   || 0) + 1;
+    locationCounts[a.location] = (locationCounts[a.location] || 0) + 1;
+    const cost = parseFloat(a.cost) || 0;
+    totalCost += cost;
+    costByType[a.type] = (costByType[a.type] || 0) + cost;
+    if (a.warranty) {
+      const wDate = new Date(a.warranty);
+      if (wDate < now) expiredWarranty.push(a);
+      else if (wDate < new Date(thirtyDays)) expiringSoon.push(a);
+    }
+    if (!a.user) unassigned.push(a);
+  });
+
+  const statColor = { Active:'var(--green)', 'In Storage':'var(--text3)', 'Under Repair':'var(--orange)', Retired:'var(--text4)', 'Stolen/Lost':'var(--red)' };
+  const fmtCur = v => '$' + (v||0).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  const tableRow = (a) => {
+    const wDate = a.warranty ? new Date(a.warranty) : null;
+    const wExpired = wDate && wDate < now;
+    const wSoon    = wDate && !wExpired && wDate < new Date(thirtyDays);
+    const ticketCount = tickets.filter(t => t.device && t.device.toLowerCase().includes(a.tag.toLowerCase())).length;
+    return `<tr style="border-bottom:1px solid var(--border);font-size:11px">
+      <td style="padding:7px 10px;font-weight:700;color:var(--blue-mid)">${a.tag}</td>
+      <td style="padding:7px 10px">${a.type}</td>
+      <td style="padding:7px 10px">${a.brand||'—'}</td>
+      <td style="padding:7px 10px;font-family:monospace;font-size:10px">${a.serial||'—'}</td>
+      <td style="padding:7px 10px">${a.user||'<span style="color:var(--text4)">Unassigned</span>'}</td>
+      <td style="padding:7px 10px">${a.location||'—'}</td>
+      <td style="padding:7px 10px"><span style="color:${statColor[a.status]||'var(--text)'};font-weight:600">${a.status}</span></td>
+      <td style="padding:7px 10px">${a.purchase||'—'}</td>
+      <td style="padding:7px 10px;color:${wExpired?'var(--red)':wSoon?'var(--orange)':'var(--text3)'}">${a.warranty?(wExpired?'⚠️ ':wSoon?'⏰ ':'')+a.warranty:'—'}</td>
+      <td style="padding:7px 10px">${a.os||a.operatingSystem||'—'}</td>
+      <td style="padding:7px 10px">${a.ip||a.ipAddress||'—'}</td>
+      <td style="padding:7px 10px">${a.dept||a.department||'—'}</td>
+      <td style="padding:7px 10px;text-align:right">${a.cost?fmtCur(parseFloat(a.cost)):'—'}</td>
+      <td style="padding:7px 10px">${a.notes||'—'}</td>
+      <td style="padding:7px 10px">${a.addedBy||'—'}</td>
+      <td style="padding:7px 10px">${a.addedAt?new Date(a.addedAt).toLocaleDateString():'—'}</td>
+      <td style="padding:7px 10px;text-align:center">${ticketCount>0?`<span style="background:var(--blue-light);color:var(--blue-mid);padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700">${ticketCount}</span>`:'—'}</td>
+    </tr>`;
+  };
+
+  const summaryCard = (label, value, color) =>
+    `<div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px">
+      <div style="font-size:10px;font-weight:700;color:var(--text3);letter-spacing:.5px;text-transform:uppercase">${label}</div>
+      <div style="font-size:22px;font-weight:800;color:${color||'var(--text)'}">${value}</div>
+    </div>`;
+
+  const breakdownRows = (obj, colorFn) =>
+    Object.entries(obj).sort(([,a],[,b])=>b-a).map(([k,v])=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px">
+        <span style="color:${colorFn?colorFn(k):'var(--text)'}">${k}</span>
+        <strong>${v}</strong>
+      </div>`).join('');
+
+  document.getElementById('pageContent').innerHTML = `
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <div>
+        <div style="font-size:18px;font-weight:800">📊 Asset Report</div>
+        <div style="font-size:12px;color:var(--text3)">Generated ${now.toLocaleString()} · ${assets.length} total assets</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="exportAssetsCSV()" style="height:34px;padding:0 14px;border-radius:8px;border:1.5px solid var(--border);background:transparent;color:var(--text3);font-size:12px;font-weight:600;cursor:pointer"><i class="ti ti-download"></i> Export CSV</button>
+        <button onclick="renderAssets()" style="height:34px;padding:0 14px;border-radius:8px;border:none;background:var(--blue-mid);color:white;font-size:12px;font-weight:600;cursor:pointer"><i class="ti ti-arrow-left"></i> Back to Assets</button>
+      </div>
+    </div>
+
+    <!-- Summary KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px">
+      ${summaryCard('Total Assets', assets.length, 'var(--blue-mid)')}
+      ${summaryCard('Total Value', fmtCur(totalCost), 'var(--green)')}
+      ${summaryCard('Active', statusCounts['Active']||0, 'var(--green)')}
+      ${summaryCard('Under Repair', statusCounts['Under Repair']||0, 'var(--orange)')}
+      ${summaryCard('Unassigned', unassigned.length, 'var(--text3)')}
+      ${summaryCard('Warranty Expired', expiredWarranty.length, 'var(--red)')}
+      ${summaryCard('Expiring Soon', expiringSoon.length, 'var(--orange)')}
+    </div>
+
+    <!-- Breakdown panels -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+      <div class="card" style="padding:16px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text3)">BY STATUS</div>
+        ${breakdownRows(statusCounts, k => statColor[k]||'var(--text)')}
+      </div>
+      <div class="card" style="padding:16px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text3)">BY TYPE</div>
+        ${breakdownRows(typeCounts)}
+      </div>
+      <div class="card" style="padding:16px">
+        <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text3)">BY LOCATION</div>
+        ${breakdownRows(locationCounts)}
+      </div>
+    </div>
+
+    <!-- Cost by Type -->
+    ${Object.keys(costByType).length ? `
+    <div class="card" style="padding:16px;margin-bottom:20px">
+      <div style="font-size:12px;font-weight:700;margin-bottom:10px;color:var(--text3)">COST BY TYPE</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        ${Object.entries(costByType).sort(([,a],[,b])=>b-a).map(([k,v])=>`
+          <div style="background:var(--bg3);border-radius:8px;padding:8px 14px;font-size:12px">
+            <div style="font-weight:700;color:var(--green)">${fmtCur(v)}</div>
+            <div style="color:var(--text3);font-size:10px">${k}</div>
+          </div>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- Alerts -->
+    ${expiredWarranty.length ? `
+    <div style="background:rgba(220,38,38,0.07);border:1.5px solid rgba(220,38,38,0.2);border-radius:12px;padding:14px 16px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:8px">⚠️ Warranty Expired (${expiredWarranty.length})</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${expiredWarranty.map(a=>`<span style="background:rgba(220,38,38,0.1);color:var(--red);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600">${a.tag} — ${a.brand||a.type}</span>`).join('')}</div>
+    </div>` : ''}
+    ${expiringSoon.length ? `
+    <div style="background:rgba(234,88,12,0.07);border:1.5px solid rgba(234,88,12,0.2);border-radius:12px;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:8px">⏰ Warranty Expiring in 30 Days (${expiringSoon.length})</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${expiringSoon.map(a=>`<span style="background:rgba(234,88,12,0.1);color:var(--orange);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:600">${a.tag} — expires ${a.warranty}</span>`).join('')}</div>
+    </div>` : ''}
+
+    <!-- Full asset table -->
+    <div class="card" style="overflow-x:auto">
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px">All Assets — Full Details</div>
+      <table style="width:100%;border-collapse:collapse;font-size:11px;min-width:1000px">
+        <thead><tr style="background:var(--bg3);border-bottom:2px solid var(--border)">
+          ${['Tag','Type','Brand/Model','Serial','Assigned To','Location','Status','Purchase Date','Warranty Until','OS','IP Address','Department','Cost','Notes','Added By','Added Date','Tickets'].map(h=>`<th style="text-align:left;padding:8px 10px;color:var(--text3);font-size:10px;white-space:nowrap;font-weight:700">${h}</th>`).join('')}
+        </tr></thead>
+        <tbody>
+          ${assets.length ? assets.map(tableRow).join('') : '<tr><td colspan="17" style="padding:24px;text-align:center;color:var(--text4)">No assets found</td></tr>'}
+        </tbody>
+      </table>
+      <div style="font-size:11px;color:var(--text4);margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">${assets.length} assets · Total value: ${fmtCur(totalCost)}</div>
+    </div>
+  </div>`;
 }
 
 function importAssetsCSV(event) {
