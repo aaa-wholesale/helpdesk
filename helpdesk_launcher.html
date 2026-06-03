@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1B4F8A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="IT Help">
+<!-- PWA Manifest inline -->
+<script>
+const manifest = {
+  name: "IT Helpdesk — Quick Submit",
+  short_name: "IT Help",
+  description: "Submit IT issues instantly with photo, screenshot or video",
+  start_url: "helpdesk_launcher.html",
+  display: "standalone",
+  background_color: "#0F2A5C",
+  theme_color: "#1B4F8A",
+  icons: [
+    { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%231B4F8A'/%3E%3Cpath d='M56 80c0-22 18-40 40-40s40 18 40 40c0 16-10 30-24 36v8H80v-8C66 110 56 96 56 80z' fill='white'/%3E%3Crect x='80' y='132' width='32' height='12' rx='4' fill='white'/%3E%3Crect x='80' y='150' width='32' height='12' rx='4' fill='white'/%3E%3C/svg%3E", sizes: "192x192", type: "image/svg+xml" }
+  ]
+};
+const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+const url = URL.createObjectURL(blob);
+const link = document.createElement('link'); link.rel='manifest'; link.href=url;
+document.currentScript.after(link);
+</script>
+<title>IT Helpdesk — Quick Submit</title>
+<style>
+:root {
+  --bg: #0F172A; --bg2: #1E293B; --bg3: #334155;
+  --blue: #2563EB; --blue-light: #3B82F6; --blue-dark: #1B4F8A;
+  --green: #16A34A; --red: #DC2626; --orange: #EA580C;
+  --text: #F1F5F9; --text2: #CBD5E1; --text3: #94A3B8; --text4: #64748B;
+  --border: rgba(148,163,184,0.15); --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: var(--font); background: var(--bg); color: var(--text); }
+body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+.card { background: var(--bg2); border-radius: var(--radius); border: 1px solid var(--border); padding: 28px 24px; width: 100%; max-width: 420px; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.logo-icon { width: 44px; height: 44px; background: var(--blue-dark); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.logo-text { font-size: 16px; font-weight: 600; color: var(--text); line-height: 1.3; }
+.logo-sub { font-size: 12px; color: var(--text3); }
+h2 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text3); margin-bottom: 20px; line-height: 1.6; }
+.action-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.action-btn {
+  background: var(--bg3); border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 16px 8px; cursor: pointer; display: flex; flex-direction: column;
+  align-items: center; gap: 8px; transition: all 0.15s; color: var(--text2);
+  font-size: 12px; font-weight: 500; text-align: center; position: relative; overflow: hidden;
+}
+.action-btn:hover { border-color: var(--blue-light); color: var(--blue-light); background: rgba(37,99,235,0.1); }
+.action-btn.selected { border-color: var(--blue-light); background: rgba(37,99,235,0.15); color: var(--blue-light); }
+.action-btn .icon { font-size: 26px; }
+.action-btn input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+#preview-area { margin-bottom: 16px; display: none; }
+.preview-wrap { position: relative; display: inline-block; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
+.preview-wrap video, .preview-wrap img { display: block; max-width: 100%; max-height: 200px; border-radius: 8px; }
+.remove-btn { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,0.7); border: none; color: white; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+.file-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: var(--text2); margin-top: 8px; }
+.rec-bar { display: none; align-items: center; gap: 8px; background: rgba(220,38,38,0.12); border: 1px solid rgba(220,38,38,0.25); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: var(--text2); }
+.rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: blink 1s ease-in-out infinite; flex-shrink: 0; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+.open-btn {
+  width: 100%; height: 48px; background: var(--blue); border: none; border-radius: 12px;
+  color: white; font-size: 14px; font-weight: 600; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; gap: 8px; transition: background 0.15s;
+  text-decoration: none;
+}
+.open-btn:hover { background: var(--blue-light); }
+.open-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.install-hint { margin-top: 16px; text-align: center; font-size: 11px; color: var(--text4); }
+.install-hint a { color: var(--text3); text-decoration: underline; cursor: pointer; }
+.dismiss-btn { margin-top: 10px; width: 100%; background: transparent; border: 1px solid var(--border); border-radius: 10px; color: var(--text4); font-size: 12px; padding: 8px; cursor: pointer; }
+.dismiss-btn:hover { border-color: var(--text3); color: var(--text3); }
+.pwa-banner { display: none; background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; font-size: 13px; color: var(--text2); }
+.pwa-banner strong { color: var(--text); }
+.status-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; }
+.toggle-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text3); }
+.toggle { position: relative; width: 36px; height: 20px; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; inset: 0; background: var(--bg3); border-radius: 20px; cursor: pointer; transition: .2s; border: 1px solid var(--border); }
+.slider:before { content:''; position: absolute; height: 14px; width: 14px; left: 3px; bottom: 2px; background: var(--text4); border-radius: 50%; transition: .2s; }
+.toggle input:checked + .slider { background: var(--blue); border-color: var(--blue); }
+.toggle input:checked + .slider:before { transform: translateX(15px); background: white; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Logo -->
+  <div class="logo">
+    <div class="logo-icon">🛠</div>
+    <div>
+      <div class="logo-text">IT Helpdesk</div>
+      <div class="logo-sub">Quick Submit — AAA Wholesale</div>
+    </div>
+  </div>
+
+  <!-- PWA install prompt (shown conditionally by JS) -->
+  <div class="pwa-banner" id="pwaBanner">
+    <strong>📌 Add to home screen / taskbar</strong><br>
+    Install this as an app so it's always one click away — no browser tabs needed.
+    <button class="open-btn" id="installBtn" style="margin-top:10px;height:36px;font-size:13px" onclick="doInstall()">Install App</button>
+  </div>
+
+  <h2>Got an IT issue?</h2>
+  <p class="subtitle">Capture your problem first — then open the helpdesk and your attachment will be waiting.</p>
+
+  <!-- Capture actions -->
+  <div class="action-grid">
+    <!-- Upload file -->
+    <label class="action-btn" id="btnUpload" title="Upload a photo, document or any file">
+      <span class="icon">📎</span>
+      Upload File
+      <input type="file" accept="*/*" multiple onchange="onFileSelected(this)">
+    </label>
+    <!-- Screenshot -->
+    <button class="action-btn" id="btnScreen" onclick="captureScreen()" title="Take a screenshot">
+      <span class="icon">📸</span>
+      Screenshot
+    </button>
+    <!-- Record video -->
+    <button class="action-btn" id="btnRecord" onclick="toggleRecord()" title="Record your screen">
+      <span class="icon" id="recIcon">🎬</span>
+      <span id="recLabel">Record</span>
+    </button>
+  </div>
+
+  <!-- Recording bar -->
+  <div class="rec-bar" id="recBar">
+    <div class="rec-dot"></div>
+    <span>Recording… <strong id="recTime">00:00:00</strong> <span style="font-size:11px;opacity:0.6">/ 3:00:00 max</span></span>
+    <button onclick="stopRecord()" style="margin-left:auto;background:var(--red);border:none;color:white;border-radius:8px;padding:4px 10px;font-size:11px;cursor:pointer">Stop</button>
+  </div>
+
+  <!-- Preview -->
+  <div id="preview-area">
+    <div class="preview-wrap" id="previewWrap"></div>
+    <div class="file-badge" id="fileBadge" style="display:none"></div>
+    <button class="dismiss-btn" onclick="clearCapture()">✕ Remove attachment</button>
+  </div>
+
+  <!-- Open helpdesk button -->
+  <a class="open-btn" id="openBtn" href="https://helpdesk.aaawholesale.com" target="_blank" onclick="saveAttachmentAndOpen(event)">
+    <span>🚀</span> Open Helpdesk &amp; Submit Ticket
+  </a>
+
+  <!-- Install / visibility toggle -->
+  <div class="toggle-row">
+    <span>Show this launcher on taskbar</span>
+    <label class="toggle">
+      <input type="checkbox" id="showToggle" checked onchange="toggleVisibility(this)">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="install-hint" id="installHint">
+    <span id="installStatusDot" class="status-dot" style="background:var(--text4)"></span>
+    <span id="installStatusText">Not installed as app</span>
+    &nbsp;·&nbsp;
+    <a onclick="showInstallHelp()">How to pin this</a>
+  </div>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────
+const HELPDESK_URL = 'https://helpdesk.aaawholesale.com';
+const STORAGE_KEY  = 'hd_launcher_attachment';
+const VISIBLE_KEY  = 'hd_launcher_visible';
+// FAB key must match the one in index.html exactly
+const FAB_KEY      = 'hd_launcher_fab_enabled';
+
+let capturedFile  = null; // { type:'file'|'screenshot'|'recording', dataUrl, name, mimeType }
+let mediaRecorder = null;
+let recChunks     = [];
+let recTimer      = null;
+let recSeconds    = 0;
+let deferredInstallPrompt = null;
+
+// ── PWA Install ────────────────────────────────────────
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  document.getElementById('pwaBanner').style.display = 'block';
+});
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('pwaBanner').style.display = 'none';
+  document.getElementById('installStatusDot').style.background = '#16A34A';
+  document.getElementById('installStatusText').textContent = 'Installed as app ✓';
+});
+
+async function doInstall() {
+  if (!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  const { outcome } = await deferredInstallPrompt.userChoice;
+  if (outcome === 'accepted') deferredInstallPrompt = null;
+}
+
+// Check if already running as PWA
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
+  document.getElementById('installStatusDot').style.background = '#16A34A';
+  document.getElementById('installStatusText').textContent = 'Running as installed app ✓';
+}
+
+// Init toggle — respect FAB key first (shared with index.html), fallback to VISIBLE_KEY
+const showToggle = document.getElementById('showToggle');
+const _fabVal = localStorage.getItem(FAB_KEY);
+const _visVal = localStorage.getItem(VISIBLE_KEY);
+if (_fabVal === 'false' || _visVal === 'false') { showToggle.checked = false; }
+
+function toggleVisibility(cb) {
+  // Write both keys so index.html's FAB respects the user's preference immediately
+  const val = cb.checked ? 'true' : 'false';
+  localStorage.setItem(VISIBLE_KEY, val);
+  localStorage.setItem(FAB_KEY, val);
+  if (!cb.checked) {
+    if (confirm('Hide the 🛠 launcher button?\n\nYou can always re-enable it in Settings → Quick Submit Launcher, or by revisiting:\nhttps://helpdesk.aaawholesale.com/helpdesk_launcher.html')) {
+      window.close();
+    } else {
+      cb.checked = true;
+      localStorage.setItem(VISIBLE_KEY, 'true');
+      localStorage.setItem(FAB_KEY, 'true');
+    }
+  }
+}
+
+// ── File Upload ────────────────────────────────────────
+function onFileSelected(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const file = files[0];
+  const reader = new FileReader();
+  reader.onload = e => {
+    capturedFile = { type:'file', dataUrl: e.target.result, name: file.name, mimeType: file.type };
+    showPreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+// ── Screenshot ─────────────────────────────────────────
+async function captureScreen() {
+  try {
+    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, preferCurrentTab: true });
+    // Use a hidden video element — works in all browsers (ImageCapture is Chrome-only)
+    const video = document.createElement('video');
+    video.srcObject = stream;
+    video.muted = true;
+    await new Promise(res => { video.onloadedmetadata = res; });
+    await video.play();
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    stream.getTracks().forEach(t => t.stop());
+    const dataUrl = canvas.toDataURL('image/png');
+    capturedFile = { type:'screenshot', dataUrl, name: 'screenshot_' + Date.now() + '.png', mimeType: 'image/png' };
+    showPreview();
+  } catch(e) {
+    if (e.name !== 'NotAllowedError') alert('Screenshot failed: ' + e.message);
+  }
+}
+
+// ── Screen Recording ───────────────────────────────────
+async function toggleRecord() {
+  if (mediaRecorder && mediaRecorder.state === 'recording') { stopRecord(); return; }
+  try {
+    const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+    recChunks = []; recSeconds = 0;
+    // Pick the best supported mimeType (vp9 webm for Chrome/Edge, fallback for Firefox/Safari)
+    const mimeType = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4']
+      .find(m => MediaRecorder.isTypeSupported(m)) || '';
+    mediaRecorder = new MediaRecorder(stream, mimeType ? { mimeType } : {});
+    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+    mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recChunks.push(e.data); };
+    mediaRecorder.onstop = () => {
+      stream.getTracks().forEach(t => t.stop());
+      clearInterval(recTimer);
+      const blob = new Blob(recChunks, { type: 'video/webm' });
+      const reader = new FileReader();
+      reader.onload = e => {
+        capturedFile = { type:'recording', dataUrl: e.target.result, name: 'recording_' + Date.now() + '.' + ext, mimeType: mimeType || 'video/webm' };
+        showPreview();
+        document.getElementById('recBar').style.display = 'none';
+        document.getElementById('btnRecord').classList.remove('selected');
+        document.getElementById('recIcon').textContent = '🎬';
+        document.getElementById('recLabel').textContent = 'Record';
+      };
+      reader.readAsDataURL(blob);
+    };
+    mediaRecorder.start(1000);
+    recTimer = setInterval(() => {
+      recSeconds++;
+      const h = String(Math.floor(recSeconds / 3600)).padStart(2,'0');
+      const m = String(Math.floor((recSeconds % 3600) / 60)).padStart(2,'0');
+      const s = String(recSeconds % 60).padStart(2,'0');
+      document.getElementById('recTime').textContent = h+':'+m+':'+s;
+    }, 1000);
+    document.getElementById('recBar').style.display = 'flex';
+    document.getElementById('btnRecord').classList.add('selected');
+    document.getElementById('recIcon').textContent = '⏹';
+    document.getElementById('recLabel').textContent = 'Recording';
+    // Auto-stop at 3 hours (10800000ms)
+    setTimeout(() => { if (mediaRecorder?.state === 'recording') stopRecord(); }, 10800000);
+  } catch(e) {
+    if (e.name !== 'NotAllowedError') alert('Recording failed: ' + e.message);
+  }
+}
+
+function stopRecord() {
+  if (mediaRecorder && mediaRecorder.state === 'recording') mediaRecorder.stop();
+}
+
+// ── Preview ────────────────────────────────────────────
+function showPreview() {
+  const area   = document.getElementById('preview-area');
+  const wrap   = document.getElementById('previewWrap');
+  const badge  = document.getElementById('fileBadge');
+  area.style.display = 'block';
+  wrap.innerHTML = '';
+  badge.style.display = 'none';
+
+  if (!capturedFile) return;
+  if (capturedFile.mimeType.startsWith('image/')) {
+    const img = document.createElement('img');
+    img.src = capturedFile.dataUrl;
+    wrap.appendChild(img);
+  } else if (capturedFile.mimeType.startsWith('video/')) {
+    const vid = document.createElement('video');
+    vid.src = capturedFile.dataUrl; vid.controls = true; vid.muted = true;
+    wrap.appendChild(vid);
+  } else {
+    badge.style.display = 'inline-flex';
+    badge.innerHTML = `📄 ${capturedFile.name}`;
+    wrap.innerHTML = '';
+  }
+  // Mark the correct action button as selected
+  ['btnUpload','btnScreen','btnRecord'].forEach(id => document.getElementById(id).classList.remove('selected'));
+  const map = { file:'btnUpload', screenshot:'btnScreen', recording:'btnRecord' };
+  document.getElementById(map[capturedFile.type] || 'btnUpload')?.classList.add('selected');
+}
+
+function clearCapture() {
+  capturedFile = null;
+  document.getElementById('preview-area').style.display = 'none';
+  document.getElementById('previewWrap').innerHTML = '';
+  ['btnUpload','btnScreen','btnRecord'].forEach(id => document.getElementById(id).classList.remove('selected'));
+  localStorage.removeItem(STORAGE_KEY);
+}
+
+// ── Open Helpdesk + pass attachment ───────────────────
+// Small files (images/screenshots): localStorage — instant, same-origin shared
+// Large files (recordings): IndexedDB — no 5MB cap, same-origin shared
+async function saveAttachmentAndOpen(e) {
+  if (!capturedFile) return; // no attachment — just open normally
+  e.preventDefault();
+  const payload = {
+    name:     capturedFile.name,
+    mimeType: capturedFile.mimeType,
+    dataUrl:  capturedFile.dataUrl,
+    type:     capturedFile.type,
+    savedAt:  Date.now()
+  };
+  const isLarge = capturedFile.type === 'recording' || capturedFile.dataUrl.length > 3_000_000;
+  if (isLarge) {
+    // Use IndexedDB for recordings / large files
+    try {
+      await idbSet('hd_launcher_attachment_idb', payload);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ useIDB: true, savedAt: Date.now() }));
+    } catch(err) {
+      alert('Could not save attachment (' + err.message + '). Please upload it manually after opening the helpdesk.');
+    }
+  } else {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch(err) {
+      alert('Attachment is too large to transfer automatically. Please upload it manually after opening the helpdesk.');
+    }
+  }
+  window.open(HELPDESK_URL + '?launcher=1', '_blank');
+}
+
+// Minimal IndexedDB helpers
+function idbOpen() {
+  return new Promise((res, rej) => {
+    const req = indexedDB.open('hd_launcher', 1);
+    req.onupgradeneeded = e => e.target.result.createObjectStore('kv');
+    req.onsuccess = e => res(e.target.result);
+    req.onerror   = e => rej(e.target.error);
+  });
+}
+async function idbSet(key, val) {
+  const db = await idbOpen();
+  return new Promise((res, rej) => {
+    const tx = db.transaction('kv', 'readwrite');
+    const req = tx.objectStore('kv').put(val, key);
+    req.onsuccess = () => res(); req.onerror = e => rej(e.target.error);
+  });
+}
+
+// ── Install help ────────────────────────────────────────
+function showInstallHelp() {
+  const ua = navigator.userAgent;
+  let msg = 'To pin this as an app:\n\n';
+  if (/Edg\//i.test(ua)) {
+    msg += 'Microsoft Edge:\n1. Click ⋯ (menu) → Apps → Install this site as an app\n2. Click Install\n3. The app will appear in your Start Menu and taskbar.';
+  } else if (/Chrome\//i.test(ua)) {
+    msg += 'Google Chrome:\n1. Click ⋮ (menu) → Save and share → Create shortcut\n2. Check "Open as window"\n3. Click Create\n4. Right-click the shortcut on your desktop → Pin to taskbar.';
+  } else if (/Firefox\//i.test(ua)) {
+    msg += 'Firefox does not support PWA install.\nBookmark this page and drag the bookmark to your toolbar instead.';
+  } else {
+    msg += '1. Use the browser menu → "Add to Home Screen" or "Install App"\n2. Or bookmark this page and drag it to your desktop/taskbar.';
+  }
+  alert(msg);
+}
+</script>
+
+<!-- ── Helpdesk integration: pick up launcher attachment ──
+     Add this block to the TOP of your index_fixed.html <script> section
+     (right after the safe-storage helpers) to auto-load the attachment
+     when the user opens the helpdesk from the launcher.
+
+     PASTE INTO index_fixed.html:
+
+(function checkLauncherAttachment() {
+  const LAUNCHER_KEY = 'hd_launcher_attachment';
+  try {
+    const raw = localStorage.getItem(LAUNCHER_KEY);
+    if (!raw || !window.location.search.includes('launcher=1')) return;
+    const data = JSON.parse(raw);
+    if (!data?.dataUrl || Date.now() - data.savedAt > 3600000) {
+      localStorage.removeItem(LAUNCHER_KEY); return;
+    }
+    localStorage.removeItem(LAUNCHER_KEY);
+    // Wait until the new ticket form is rendered, then inject the attachment
+    window._launcherAttachment = data;
+    const _origRenderNewTicket = window.renderNewTicket;
+    window.renderNewTicket = function() {
+      _origRenderNewTicket.apply(this, arguments);
+      if (!window._launcherAttachment) return;
+      const att = window._launcherAttachment;
+      window._launcherAttachment = null;
+      const size = Math.round(att.dataUrl.length * 0.75);
+      attachments.push({ name: att.name, type: att.mimeType, dataUrl: att.dataUrl, size });
+      renderAttachmentPreviews();
+      toast('📎 Attachment from launcher loaded — complete your ticket below', false, 5000);
+    };
+    // Auto-navigate to new ticket
+    setTimeout(() => { if (typeof showPage === 'function') showPage('new-ticket'); }, 800);
+  } catch(e) { console.warn('[Launcher] Could not load attachment:', e); }
+})();
+
+-->
+</body>
+</html>
